@@ -3,7 +3,19 @@ import { productsFilters } from "@/constants/Products";
 import Image from "next/image";
 import { useState } from "react";
 
-export default function Filters() {
+interface Props {
+  onPrevPage: () => void;
+  onNextPage: () => void;
+  currentPage: number;
+  productsTotalCount: number;
+}
+
+export default function Filters({
+  onPrevPage,
+  onNextPage,
+  currentPage,
+  productsTotalCount,
+}: Props) {
   const [activeFilter, setActiveFilter] = useState(productsFilters.mostRecent);
 
   return (
@@ -30,7 +42,11 @@ export default function Filters() {
           Highest price
         </button>
       </div>
-      <button className="ml-auto">
+      <button
+        className="ml-auto"
+        disabled={currentPage === 0}
+        onClick={onPrevPage}
+      >
         <Image
           width={48}
           height={48}
@@ -38,7 +54,11 @@ export default function Filters() {
           src="/icons/arrow-left.svg"
         />
       </button>
-      <button className="ml-4">
+      <button
+        className="ml-4"
+        disabled={currentPage === Math.ceil(productsTotalCount / 16) - 1}
+        onClick={onNextPage}
+      >
         <Image
           width={48}
           height={48}

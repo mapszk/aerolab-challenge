@@ -11,12 +11,19 @@ interface Props {
 
 export default function ProductsList({ products }: Props) {
   const [currentPage, setCurrentPage] = useState(0);
+  const nextPage = () => setCurrentPage(currentPage + 1);
+  const prevPage = () => setCurrentPage(currentPage - 1);
 
   return (
     <div>
-      <Filters />
+      <Filters
+        currentPage={currentPage}
+        productsTotalCount={products.length}
+        onPrevPage={prevPage}
+        onNextPage={nextPage}
+      />
       <section className="my-12 grid grid-cols-4 gap-6">
-        {products.slice(0, 16).map((card) => (
+        {products.slice(currentPage, 16).map((card) => (
           <ProductCard key={card._id} product={card} />
         ))}
       </section>
@@ -25,7 +32,7 @@ export default function ProductsList({ products }: Props) {
         <button
           className="ml-auto"
           disabled={currentPage === 0}
-          onClick={() => setCurrentPage(currentPage - 1)}
+          onClick={prevPage}
         >
           <Image
             width={48}
@@ -37,7 +44,7 @@ export default function ProductsList({ products }: Props) {
         <button
           className="ml-4"
           disabled={currentPage === Math.ceil(products.length / 16) - 1}
-          onClick={() => setCurrentPage(currentPage + 1)}
+          onClick={nextPage}
         >
           <Image
             width={48}
