@@ -24,7 +24,7 @@ export default function ProductsList({ products }: Props) {
         onPrevPage={prevPage}
         onNextPage={nextPage}
       />
-      <section className="my-12 grid grid-cols-4 gap-6">
+      <section className="my-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {products.slice(currentPage, pageSize).map((card) => (
           <ProductCard key={card._id} product={card} />
         ))}
