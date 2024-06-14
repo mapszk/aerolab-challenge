@@ -8,6 +8,7 @@ interface Props {
   onNextPage: () => void;
   currentPage: number;
   productsTotalCount: number;
+  pageSize: number;
 }
 
 export default function Filters({
@@ -15,29 +16,32 @@ export default function Filters({
   onNextPage,
   currentPage,
   productsTotalCount,
+  pageSize,
 }: Props) {
   const [activeFilter, setActiveFilter] = useState(productsFilters.mostRecent);
 
   return (
     <div className="flex items-center text-xl border-b-[1px] pb-5">
-      <span className="text-gray-600">16 of 32 products</span>
-      <div className="flex gap-4 items-center border-l-[1px] pl-5 ml-4">
+      <span className="text-gray-600">
+        {pageSize} of {productsTotalCount} products
+      </span>
+      <div className="flex gap-5 items-center border-l-[1px] pl-5 ml-4">
         <span className="text-gray-400">Sort by:</span>
         <button
           onClick={() => setActiveFilter(productsFilters.mostRecent)}
-          className="h-12 px-4 text-xl text-gray-400 bg-gray-200 rounded-2xl"
+          className="h-12 px-5 text-xl text-gray-400 bg-gray-200 rounded-2xl"
         >
           Most recent
         </button>
         <button
           onClick={() => setActiveFilter(productsFilters.lowestPrice)}
-          className="h-12 px-4 text-xl text-gray-400 bg-gray-200 rounded-2xl"
+          className="h-12 px-5 text-xl text-gray-400 bg-gray-200 rounded-2xl"
         >
           Lowest price
         </button>
         <button
           onClick={() => setActiveFilter(productsFilters.highestPrice)}
-          className="h-12 px-4 text-xl text-gray-400 bg-gray-200 rounded-2xl"
+          className="h-12 px-5 text-xl text-gray-400 bg-gray-200 rounded-2xl"
         >
           Highest price
         </button>
