@@ -4,13 +4,16 @@ import Filters from "./Filters";
 import ProductCard from "./ProductCard";
 import Link from "next/link";
 import { productsFilters, productsFiltersData } from "@/constants/Products";
+import { IUserData } from "@/interfaces/User";
+import { getUser } from "@/actions/actions";
 
 interface Props {
   products: IProductCard[];
   searchParams: { [key: string]: string | string[] | undefined };
 }
 
-export default function ProductsList({ products, searchParams }: Props) {
+export default async function ProductsList({ products, searchParams }: Props) {
+  const user: IUserData = await getUser();
   const currentPage = searchParams.page ? Number(searchParams.page) : 1;
   const currentFilter = searchParams.filter
     ? Number(searchParams.filter)
@@ -51,7 +54,7 @@ export default function ProductsList({ products, searchParams }: Props) {
           .sort(sortMethod)
           .slice((currentPage - 1) * pageSize, currentPage * pageSize)
           .map((card) => (
-            <ProductCard key={card._id} product={card} />
+            <ProductCard user={user} key={card._id} product={card} />
           ))}
       </section>
       <div className="flex justify-between items-center border-b-[1px] pb-6">

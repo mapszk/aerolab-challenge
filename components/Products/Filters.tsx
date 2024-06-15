@@ -87,7 +87,7 @@ export default function Filters({
       </div>
       <div className="w-full lg:w-auto lg:ml-auto lg:gap-4 flex justify-between lg:justify-start mt-4 lg:mt-0">
         {showPrevPage && (
-          <Link className="ml-auto" href={prevPageLink}>
+          <Link className="lg:ml-auto" href={prevPageLink}>
             <Image
               width={48}
               height={48}
@@ -97,7 +97,7 @@ export default function Filters({
           </Link>
         )}
         {showNextPage && (
-          <Link className="ml-4" href={nextPageLink}>
+          <Link className="ml-auto lg:ml-4" href={nextPageLink}>
             <Image
               width={48}
               height={48}
