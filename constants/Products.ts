@@ -6,8 +6,20 @@ export const productsFilters = {
   highestPrice: 3,
 };
 
-const mostRecentSort = (a: IProductCard, b: IProductCard) => a._id - b._id;
-
-const lowestPriceSort = (a: IProductCard, b: IProductCard) => a.cost < b.cost;
-
-const highestPriceSort = (a: IProductCard, b: IProductCard) => a.cost > b.cost;
+export const productsFiltersData = [
+  {
+    name: "mostRecent",
+    id: 1,
+    sort: (a: IProductCard, b: IProductCard) => a._id.localeCompare(b._id),
+  },
+  {
+    name: "lowestPrice",
+    id: 2,
+    sort: (a: IProductCard, b: IProductCard) => (a.cost < b.cost ? -1 : 1),
+  },
+  {
+    name: "highestPrice",
+    id: 3,
+    sort: (a: IProductCard, b: IProductCard) => (a.cost > b.cost ? -1 : 1),
+  },
+];

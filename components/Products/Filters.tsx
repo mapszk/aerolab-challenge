@@ -1,4 +1,4 @@
-import { productsFilters } from "@/constants/Products";
+import { productsFilters, productsFiltersData } from "@/constants/Products";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -19,27 +19,25 @@ export default function Filters({
     ? Number(searchParams.filter)
     : productsFilters.mostRecent;
 
-  const showNextPage =
-    currentPage < Math.ceil(productsTotalCount / pageSize) - 1;
-  const showPrevPage = currentPage > 0;
+  const showNextPage = currentPage < Math.ceil(productsTotalCount / pageSize);
+  const showPrevPage = currentPage > 1;
   const nextPageLink = {
     pathname: "/",
     query: {
+      ...searchParams,
       page: currentPage + 1,
     },
   };
   const prevPageLink = {
     pathname: "/",
     query: {
+      ...searchParams,
       page: currentPage - 1,
     },
   };
   const getFilterLink = (filter: number) => ({
     pathname: "/",
-    query: {
-      ...searchParams,
-      filter,
-    },
+    query: { filter },
   });
 
   const defaultFilterClasses =
