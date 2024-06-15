@@ -1,28 +1,41 @@
-"use client";
 import { IProductCard } from "@/interfaces/Product";
 import Image from "next/image";
 import Filters from "./Filters";
 import ProductCard from "./ProductCard";
-import { useState } from "react";
+import Link from "next/link";
 
 interface Props {
   products: IProductCard[];
+  searchParams: { [key: string]: string | string[] | undefined };
 }
 
-export default function ProductsList({ products }: Props) {
-  const [currentPage, setCurrentPage] = useState(0);
-  const nextPage = () => setCurrentPage(currentPage + 1);
-  const prevPage = () => setCurrentPage(currentPage - 1);
+export default function ProductsList({ products, searchParams }: Props) {
+  const currentPage = searchParams.page ? Number(searchParams.page) : 0;
   const pageSize = 16;
+
+  const showNextPage = currentPage < Math.ceil(products.length / pageSize) - 1;
+  const showPrevPage = currentPage > 0;
+
+  const nextPageLink = {
+    pathname: "/",
+    query: {
+      page: currentPage + 1,
+    },
+  };
+  const prevPageLink = {
+    pathname: "/",
+    query: {
+      page: currentPage - 1,
+    },
+  };
 
   return (
     <div>
       <Filters
         currentPage={currentPage}
         pageSize={pageSize}
+        searchParams={searchParams}
         productsTotalCount={products.length}
-        onPrevPage={prevPage}
-        onNextPage={nextPage}
       />
       <section className="my-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {products.slice(currentPage, pageSize).map((card) => (
@@ -33,30 +46,26 @@ export default function ProductsList({ products }: Props) {
         <span className="text-xl text-gray-600">
           {pageSize} of {products.length} products
         </span>
-        <button
-          className="ml-auto"
-          disabled={currentPage === 0}
-          onClick={prevPage}
-        >
-          <Image
-            width={48}
-            height={48}
-            alt="Arrow right"
-            src="/icons/arrow-left.svg"
-          />
-        </button>
-        <button
-          className="ml-4"
-          disabled={currentPage === Math.ceil(products.length / 16) - 1}
-          onClick={nextPage}
-        >
-          <Image
-            width={48}
-            height={48}
-            alt="Arrow right"
-            src="/icons/arrow-right.svg"
-          />
-        </button>
+        {showPrevPage && (
+          <Link className="ml-auto" href={prevPageLink}>
+            <Image
+              width={48}
+              height={48}
+              alt="Arrow right"
+              src="/icons/arrow-left.svg"
+            />
+          </Link>
+        )}
+        {showNextPage && (
+          <Link className="ml-4" href={nextPageLink}>
+            <Image
+              width={48}
+              height={48}
+              alt="Arrow right"
+              src="/icons/arrow-right.svg"
+            />
+          </Link>
+        )}
       </div>
     </div>
   );
