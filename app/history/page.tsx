@@ -17,7 +17,7 @@ export default async function Page({
       <Container className="my-8 lg:my-16">
         <HistoryList
           searchParams={searchParams}
-          history={userData.redeemHistory}
+          history={userData.redeemHistory.reverse()}
         />
       </Container>
     </main>

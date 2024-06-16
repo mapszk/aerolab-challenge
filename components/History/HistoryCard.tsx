@@ -7,7 +7,7 @@ interface Props {
 
 export default function HistoryCard({ product }: Props) {
   return (
-    <div className="bg-white p-4 h-32 flex">
+    <div className="bg-white p-4 h-32 flex shadow-md">
       <div className="relative mr-4 w-32 h-full">
         <Image
           fill={true}
