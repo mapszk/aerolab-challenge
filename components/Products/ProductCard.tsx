@@ -1,4 +1,5 @@
 "use client";
+import { redeemProduct } from "@/actions/actions";
 import { IProductCard } from "@/interfaces/Product";
 import { IUserData } from "@/interfaces/User";
 import Image from "next/image";
@@ -13,13 +14,16 @@ export default function ProductCard({ product, user }: Props) {
 
   return (
     <div className="group bg-white h-[276px] relative w-full shadow-lg hover:shadow-xl hover:-translate-y-3 transition-all transition-ease">
-      <div className="cursor-pointer opacity-0 group-hover:opacity-100 transition-ease transition-all flex absolute z-[2] h-full w-full bg-blue-400 bg-opacity-70 flex-col items-center justify-center">
+      <div className="cursor-pointer opacity-0 group-hover:opacity-100 transition-ease transition-all flex absolute z-[2] h-full w-full bg-brandCyan bg-opacity-70 flex-col items-center justify-center">
         <div className="flex mb-2 items-center">
           <span className="text-white text-4xl mr-2">{product.cost}</span>
           <Image width={26} height={26} alt="Coin icon" src="/icons/coin.svg" />
         </div>
         {!disableBuy && (
-          <button className="bg-white rounded-full text-center text-gray-600 h-10 w-52">
+          <button
+            onClick={() => redeemProduct(product._id)}
+            className="bg-white rounded-full text-center text-gray-600 h-10 w-52"
+          >
             Reedem now
           </button>
         )}

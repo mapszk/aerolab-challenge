@@ -21,3 +21,9 @@
     text-wrap: balance;
   }
 }
+
+@layer base {
+  html {
+    font-size: 16px;
+  }
+}

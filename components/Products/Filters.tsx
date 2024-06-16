@@ -40,9 +40,10 @@ export default function Filters({
     query: { filter },
   });
 
-  const defaultFilterClasses =
-    "w-full flex items-center lg:w-auto h-10 lg:h-12 px-5 text-base lg:text-xl text-gray-400 bg-gray-200 rounded-2xl";
-  const activeFilterClasses = `${defaultFilterClasses} bg-blue-500 text-white`;
+  const filterClasses =
+    "w-full flex items-center lg:w-auto h-10 lg:h-12 px-5 text-base lg:text-xl rounded-2xl";
+  const defaultFilterClasses = `${filterClasses} bg-gray-200 text-gray-400`;
+  const activeFilterClasses = `${filterClasses} bg-brandCyan text-white`;
 
   return (
     <div className="flex flex-col lg:gap-5 lg:flex-row items-center text-xl lg:text-xl border-b-[1px] pb-5">
