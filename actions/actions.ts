@@ -34,6 +34,7 @@ export async function getUser() {
 
 export async function addPoints(amount: number) {
   try {
+    revalidatePath("user");
     const res = await fetch(process.env.API_BASE_URL + "/user/points", {
       method: "POST",
       headers: {

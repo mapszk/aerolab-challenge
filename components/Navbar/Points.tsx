@@ -2,13 +2,21 @@
 import Image from "next/image";
 import * as Popover from "@radix-ui/react-popover";
 import Link from "next/link";
+import Button from "../Button";
+import { useState } from "react";
+import { addPoints } from "@/actions/actions";
 
 interface Props {
   points: number;
 }
 
 export default function Points({ points }: Props) {
-  const close = () => {};
+  const [loading, setLoading] = useState(false);
+  const add = async (amount: number) => {
+    setLoading(true);
+    await addPoints(amount);
+    setLoading(false);
+  };
 
   return (
     <Popover.Root>
@@ -24,23 +32,42 @@ export default function Points({ points }: Props) {
       >
         <div className="p-4 bg-white w-full h-full rounded-3xl">
           <div className="relative mb-3 flex">
-            <Link
-              href="/history"
-              onClick={close}
+            <Popover.Close
               className="h-12 grow px-4 bg-gray-200 rounded-xl text-gray-600 flex items-center text-2xl"
+              asChild
             >
-              See history
-            </Link>
+              <Link href="/history">See history</Link>
+            </Popover.Close>
             <Image
               className="absolute right-0 -top-2"
-              width={50}
-              height={50}
+              width={40}
+              height={40}
               alt="Aerolab"
               src="/aerolab-logo.svg"
             />
           </div>
           <div className="flex gap-2 w-full">
-            <button className="h-12 flex items-center grow px-4 bg-brandCyan rounded-xl text-white text-xl">
+            <Button disabled={loading} onClick={() => add(7500)}>
+              +7500
+              <Image
+                className="ml-1"
+                width={20}
+                height={20}
+                alt="Coin"
+                src="/icons/coin.svg"
+              />
+            </Button>
+            <Button disabled={loading} onClick={() => add(5000)}>
+              +5000
+              <Image
+                className="ml-1"
+                width={20}
+                height={20}
+                alt="Coin"
+                src="/icons/coin.svg"
+              />
+            </Button>
+            <Button disabled={loading} onClick={() => add(1000)}>
               +1000
               <Image
                 className="ml-1"
@@ -49,27 +76,7 @@ export default function Points({ points }: Props) {
                 alt="Coin"
                 src="/icons/coin.svg"
               />
-            </button>
-            <button className="h-12 flex items-center grow px-4 bg-brandCyan rounded-xl text-white text-xl">
-              +500
-              <Image
-                className="ml-1"
-                width={20}
-                height={20}
-                alt="Coin"
-                src="/icons/coin.svg"
-              />
-            </button>
-            <button className="h-12 flex items-center grow px-4 bg-brandCyan rounded-xl text-white text-xl">
-              +100
-              <Image
-                className="ml-1"
-                width={20}
-                height={20}
-                alt="Coin"
-                src="/icons/coin.svg"
-              />
-            </button>
+            </Button>
           </div>
         </div>
       </Popover.Content>

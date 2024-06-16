@@ -47,7 +47,7 @@ export default async function ProductsList({ products, searchParams }: Props) {
         currentPage={currentPage}
         pageSize={pageSize}
         searchParams={searchParams}
-        productsTotalCount={products.length}
+        products={products}
       />
       <section className="my-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {products
@@ -59,7 +59,8 @@ export default async function ProductsList({ products, searchParams }: Props) {
       </section>
       <div className="flex justify-between items-center border-b-[1px] pb-6">
         <span className="text-xl text-gray-600">
-          {pageSize} of {products.length} products
+          {products.slice(0, currentPage * pageSize).length} of{" "}
+          {products.length} products
         </span>
         {showPrevPage && (
           <Link className="ml-auto" href={prevPageLink}>

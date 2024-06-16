@@ -17,7 +17,7 @@ export default function HistoryCard({ product }: Props) {
         />
       </div>
       <div className="flex flex-col h-full">
-        <h2 className="text-2xl">{product.name}</h2>
+        <h2 className="text-xl md:text-2xl">{product.name}</h2>
         <span className="text-gray-400">{product.category}</span>
         <div className="flex gap-2 mt-auto text-gray-600 text-2xl">
           {product.cost}

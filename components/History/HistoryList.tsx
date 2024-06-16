@@ -48,7 +48,8 @@ export default function HistoryList({ history, searchParams }: Props) {
       </section>
       <div className="flex justify-between items-center border-b-[1px] pb-6">
         <span className="text-xl text-gray-600">
-          {pageSize} of {history.length} products
+          {history.slice(0, currentPage * pageSize).length} of {history.length}{" "}
+          products
         </span>
         {showPrevPage && (
           <Link className="ml-auto" href={prevPageLink}>
