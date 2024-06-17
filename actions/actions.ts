@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 
 export async function getProducts() {
-  await fetch(process.env.API_BASE_URL + "/products", {
+  return fetch(process.env.API_BASE_URL + "/products", {
     headers: {
       Authorization: `Bearer ${process.env.API_TOKEN}`,
     },
@@ -18,7 +18,7 @@ export async function getProducts() {
 }
 
 export async function getUser() {
-  await fetch(process.env.API_BASE_URL + "/user/me", {
+  return fetch(process.env.API_BASE_URL + "/user/me", {
     headers: {
       Authorization: `Bearer ${process.env.API_TOKEN}`,
     },
@@ -36,7 +36,7 @@ export async function getUser() {
 
 export async function addPoints(amount: number) {
   revalidatePath("user");
-  await fetch(process.env.API_BASE_URL + "/user/points", {
+  return fetch(process.env.API_BASE_URL + "/user/points", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -54,7 +54,7 @@ export async function addPoints(amount: number) {
 }
 
 export async function getHistory() {
-  await fetch(process.env.API_BASE_URL + "/user/history", {
+  return fetch(process.env.API_BASE_URL + "/user/history", {
     headers: {
       Authorization: `Bearer ${process.env.API_TOKEN}`,
     },
@@ -70,7 +70,7 @@ export async function getHistory() {
 
 export async function redeemProduct(productId: string) {
   revalidatePath("user");
-  await fetch(process.env.API_BASE_URL + "/redeem", {
+  return fetch(process.env.API_BASE_URL + "/redeem", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
