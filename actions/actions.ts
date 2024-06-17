@@ -1,5 +1,4 @@
 "use server";
-
 import { revalidatePath } from "next/cache";
 
 export async function getProducts() {
@@ -18,12 +17,12 @@ export async function getProducts() {
 }
 
 export async function getUser() {
+  revalidatePath("user");
   return fetch(process.env.API_BASE_URL + "/user/me", {
     headers: {
       Authorization: `Bearer ${process.env.API_TOKEN}`,
     },
     next: { tags: ["user"] },
-    cache: "no-store",
   })
     .then((res) => {
       if (!res.ok) return res.statusText;
