@@ -3,6 +3,8 @@ import { redeemProduct } from "@/actions/actions";
 import { IProductCard } from "@/interfaces/Product";
 import { IUserData } from "@/interfaces/User";
 import Image from "next/image";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 interface Props {
   product: IProductCard;
@@ -11,6 +13,18 @@ interface Props {
 
 export default function ProductCard({ product, user }: Props) {
   const disableBuy = user.points < product.cost;
+  const [loading, setLoading] = useState(false);
+  const redeem = async () => {
+    try {
+      setLoading(true);
+      await redeemProduct(product._id);
+      toast.success("Product redeemed!");
+    } catch (err) {
+      toast.error("Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="group bg-white h-[276px] relative w-full shadow-lg hover:shadow-xl hover:-translate-y-3 transition-all transition-ease">
@@ -21,7 +35,8 @@ export default function ProductCard({ product, user }: Props) {
         </div>
         {!disableBuy && (
           <button
-            onClick={() => redeemProduct(product._id)}
+            onClick={redeem}
+            disabled={loading}
             className="bg-white rounded-full text-center text-gray-600 h-10 w-52"
           >
             Reedem now

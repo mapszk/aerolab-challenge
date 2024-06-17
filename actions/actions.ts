@@ -8,11 +8,11 @@ export async function getProducts() {
     },
   })
     .then((res) => {
-      if (!res.ok) return res.statusText;
+      if (!res.ok) throw new Error(res.statusText);
       else return res.json();
     })
     .catch((err) => {
-      console.log(err);
+      return err;
     });
 }
 
@@ -25,11 +25,11 @@ export async function getUser() {
     next: { tags: ["user"] },
   })
     .then((res) => {
-      if (!res.ok) return res.statusText;
+      if (!res.ok) throw new Error(res.statusText);
       else return res.json();
     })
     .catch((err) => {
-      console.log(err);
+      return err;
     });
 }
 
@@ -44,11 +44,11 @@ export async function addPoints(amount: number) {
     body: JSON.stringify({ amount }),
   })
     .then((res) => {
-      if (!res.ok) return res.statusText;
+      if (!res.ok) throw new Error(res.statusText);
       else return res.json();
     })
     .catch((err) => {
-      console.log(err);
+      return err;
     });
 }
 
@@ -59,11 +59,11 @@ export async function getHistory() {
     },
   })
     .then((res) => {
-      if (!res.ok) return res.statusText;
+      if (!res.ok) throw new Error(res.statusText);
       else return res.json();
     })
     .catch((err) => {
-      console.log(err);
+      return err;
     });
 }
 
@@ -78,10 +78,10 @@ export async function redeemProduct(productId: string) {
     body: JSON.stringify({ productId }),
   })
     .then((res) => {
-      if (!res.ok) return res.statusText;
+      if (!res.ok) throw new Error(res.statusText);
       else return res.json();
     })
     .catch((err) => {
-      console.log(err);
+      return err;
     });
 }
